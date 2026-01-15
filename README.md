@@ -402,3 +402,9 @@ x=2
 Второй проход: сохранять индексы вхождений в новый массив
 Вернуть массив индексов
 Двухпроходный алгоритм: сначала считаем, потом собираем
+
+# тестирование
+<img width="482" height="1387" alt="image" src="https://github.com/user-attachments/assets/98c92c7c-fdfd-49d6-8009-5ad2c6f9335a" />
+<img width="519" height="1166" alt="image" src="https://github.com/user-attachments/assets/26cc1b53-c870-43f7-999c-4da32325a523" />
+
+
