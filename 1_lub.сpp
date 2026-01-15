@@ -1,0 +1,356 @@
+#include <iostream>
+#include <string>
+#include <cmath>
+#include <sstream>
+
+// Задание 1.1: Дробная часть
+double fraction(double x) {
+    return x - static_cast<int>(x);
+}
+
+// Задание 1.5: Двузначное
+bool is2Digits(int x) {
+    return (x >= 10 && x <= 99) || (x <= -10 && x >= -99);
+}
+
+// Задание 1.7: Диапазон
+bool isInRange(int a, int b, int num) {
+    int left = a < b ? a : b;
+    int right = a > b ? a : b;
+    return num >= left && num <= right;
+}
+
+// Задание 1.9: Равенство
+bool isEqual(int a, int b, int c) {
+    return a == b && b == c;
+}
+
+// Задание 2.1: Модуль числа
+int abs(int x) {
+    return x < 0 ? -x : x;
+}
+
+// Задание 2.3: Тридцать пять
+bool is35(int x) {
+    bool div3 = x % 3 == 0;
+    bool div5 = x % 5 == 0;
+    return (div3 || div5) && !(div3 && div5);
+}
+
+// Задание 2.5: Тройной максимум
+int max3(int x, int y, int z) {
+    int max = x;
+    if (y > max) max = y;
+    if (z > max) max = z;
+    return max;
+}
+
+// Задание 2.7: Двойная сумма
+int sum2(int x, int y) {
+    int s = x + y;
+    return (s >= 10 && s <= 19) ? 20 : s;
+}
+
+// Задание 2.9: День недели
+std::string day(int x) {
+    switch (x) {
+    case 1: return "понедельник";
+    case 2: return "вторник";
+    case 3: return "среда";
+    case 4: return "четверг";
+    case 5: return "пятница";
+    case 6: return "суббота";
+    case 7: return "воскресенье";
+    default: return "нет такого дня недели";
+    }
+}
+
+// Задание 3.1: Числа подряд
+std::string listNums(int x) {
+    std::ostringstream oss;
+    for (int i = 0; i <= x; ++i) {
+        oss << i;
+        if (i != x) oss << " ";
+    }
+    return oss.str();
+}
+
+// Задание 3.3: Четные числа
+std::string chet(int x) {
+    std::ostringstream oss;
+    for (int i = 0; i <= x; i += 2) {
+        oss << i;
+        if (i + 2 <= x) oss << " ";
+    }
+    return oss.str();
+}
+
+// Задание 3.5: Длина числа
+int numLen(long x) {
+    if (x == 0) return 1;
+    int len = 0;
+    x = ::abs(x);
+    while (x > 0) {
+        x /= 10;
+        len++;
+    }
+    return len;
+}
+
+// Задание 3.7: Квадрат
+void square(int x) {
+    for (int i = 0; i < x; ++i) {
+        for (int j = 0; j < x; ++j) {
+            std::cout << "*";
+        }
+        std::cout << std::endl;
+    }
+}
+
+// Задание 3.9: Правый треугольник
+void rightTriangle(int x) {
+    for (int i = 1; i <= x; ++i) {
+        for (int j = 0; j < x - i; ++j) {
+            std::cout << " ";
+        }
+        for (int j = 0; j < i; ++j) {
+            std::cout << "*";
+        }
+        std::cout << std::endl;
+    }
+}
+
+// Задание 4.1: Поиск первого значения
+int findFirst(int arr[], int size, int x) {
+    for (int i = 0; i < size; ++i) {
+        if (arr[i] == x) return i;
+    }
+    return -1;
+}
+
+// Задание 4.3: Поиск максимального по модулю
+int maxAbs(int arr[], int size) {
+    if (size == 0) return 0;
+    int maxVal = arr[0];
+    for (int i = 1; i < size; ++i) {
+        if (::abs(arr[i]) > ::abs(maxVal)) {
+            maxVal = arr[i];
+        }
+    }
+    return maxVal;
+}
+
+// Задание 4.5: Добавление массива в массив
+int* add(int arr[], int arrSize, int ins[], int insSize, int pos, int& newSize) {
+    if (pos < 0 || pos > arrSize) pos = arrSize;
+    newSize = arrSize + insSize;
+    int* result = new int[newSize];
+
+    for (int i = 0; i < pos; ++i) result[i] = arr[i];
+    for (int i = 0; i < insSize; ++i) result[pos + i] = ins[i];
+    for (int i = pos; i < arrSize; ++i) result[i + insSize] = arr[i];
+
+    return result;
+}
+
+// Задание 4.7: Возвратный реверс
+int* reverseBack(int arr[], int size, int& newSize) {
+    newSize = size;
+    int* result = new int[size];
+    for (int i = 0; i < size; ++i) {
+        result[i] = arr[size - 1 - i];
+    }
+    return result;
+}
+
+// Задание 4.9: Все вхождения
+int* findAll(int arr[], int size, int x, int& resultSize) {
+    resultSize = 0;
+    for (int i = 0; i < size; ++i) {
+        if (arr[i] == x) resultSize++;
+    }
+
+    int* result = new int[resultSize];
+    int index = 0;
+    for (int i = 0; i < size; ++i) {
+        if (arr[i] == x) {
+            result[index++] = i;
+        }
+    }
+    return result;
+}
+
+// Вспомогательные функции для ввода
+int readInt(const std::string& prompt) {
+    int value;
+    std::cout << prompt;
+    while (!(std::cin >> value)) {
+        std::cin.clear();
+        std::cin.ignore(1000, '\n');
+        std::cout << "Ошибка ввода. Пожалуйста, введите целое число: ";
+    }
+    std::cin.ignore(1000, '\n');
+    return value;
+}
+
+double readDouble(const std::string& prompt) {
+    double value;
+    std::cout << prompt;
+    while (!(std::cin >> value)) {
+        std::cin.clear();
+        std::cin.ignore(1000, '\n');
+        std::cout << "Ошибка ввода. Пожалуйста, введите число: ";
+    }
+    std::cin.ignore(1000, '\n');
+    return value;
+}
+
+char readChar(const std::string& prompt) {
+    char value;
+    std::cout << prompt;
+    std::cin >> value;
+    std::cin.ignore(1000, '\n');
+    return value;
+}
+
+void printArray(int arr[], int size) {
+    std::cout << "[";
+    for (int i = 0; i < size; ++i) {
+        std::cout << arr[i];
+        if (i < size - 1) std::cout << ", ";
+    }
+    std::cout << "]";
+}
+
+int main() {
+    setlocale(LC_ALL, "Russian");
+
+    std::cout << "1.1 Дробная часть\n";
+    double num1 = readDouble("Введите число: ");
+    std::cout << "Дробная часть: " << fraction(num1) << "\n\n";
+
+    std::cout << "1.3 Букву в число\n";
+    char ch = readChar("Введите цифру (0-9): ");
+    int digit = charToNum(ch);
+    if (digit != -1) {
+        std::cout << "Число: " << digit << "\n\n";
+    }
+    else {
+        std::cout << "Введен недопустимый символ\n\n";
+    }
+
+    std::cout << "1.5 Двузначное\n";
+    int num2 = readInt("Введите число: ");
+    std::cout << (is2Digits(num2) ? "true" : "false") << "\n\n";
+
+    std::cout << "1.7 Диапазон\n";
+    int a = readInt("Введите границу a: ");
+    int b = readInt("Введите границу b: ");
+    int num3 = readInt("Введите число: ");
+    std::cout << (isInRange(a, b, num3) ? "true" : "false") << "\n\n";
+
+    std::cout << "1.9 Равенство\n";
+    int a1 = readInt("Введите число a: ");
+    int b1 = readInt("Введите число b: ");
+    int c1 = readInt("Введите число c: ");
+    std::cout << (isEqual(a1, b1, c1) ? "true" : "false") << "\n\n";
+
+    std::cout << "2.1 Модуль числа\n";
+    int num4 = readInt("Введите число: ");
+    std::cout << "Модуль: " << abs(num4) << "\n\n";
+
+    std::cout << "2.3 Тридцать пять\n";
+    int num5 = readInt("Введите число: ");
+    std::cout << (is35(num5) ? "true" : "false") << "\n\n";
+
+    std::cout << "2.5 Тройной максимум\n";
+    int x1 = readInt("Введите число x: ");
+    int y1 = readInt("Введите число y: ");
+    int z1 = readInt("Введите число z: ");
+    std::cout << "Максимум: " << max3(x1, y1, z1) << "\n\n";
+
+    std::cout << "2.7 Двойная сумма\n";
+    int x2 = readInt("Введите число x: ");
+    int y2 = readInt("Введите число y: ");
+    std::cout << "Результат: " << sum2(x2, y2) << "\n\n";
+
+    std::cout << "2.9 День недели\n";
+    int dayNum = readInt("Введите номер дня недели (1-7): ");
+    std::cout << day(dayNum) << "\n\n";
+
+    std::cout << "3.1 Числа подряд\n";
+    int limit = readInt("Введите число x: ");
+    std::cout << "Результат: " << listNums(limit) << "\n\n";
+
+    std::cout << "3.3 Четные числа\n";
+    int limit2 = readInt("Введите число x: ");
+    std::cout << "Результат: " << chet(limit2) << "\n\n";
+
+    std::cout << "3.5 Длина числа\n";
+    long num6 = readInt("Введите число: ");
+    std::cout << "Длина: " << numLen(num6) << "\n\n";
+
+    std::cout << "3.7 Квадрат\n";
+    int size1 = readInt("Введите размер квадрата: ");
+    square(size1);
+    std::cout << std::endl;
+
+    std::cout << "3.9 Правый треугольник\n";
+    int height = readInt("Введите высоту треугольника: ");
+    rightTriangle(height);
+    std::cout << std::endl;
+
+    std::cout << "4.1 Поиск первого значения\n";
+    int arr1[] = { 1, 2, 3, 4, 2, 2, 5 };
+    int sizeArr1 = 7;
+    int search1 = readInt("Введите число для поиска: ");
+    int index = findFirst(arr1, sizeArr1, search1);
+    std::cout << "Индекс первого вхождения: " << index << "\n\n";
+
+    std::cout << "4.3 Поиск максимального по модулю\n";
+    int arr2[] = { 1, -2, -7, 4, 2, 2, 5 };
+    int sizeArr2 = 7;
+    std::cout << "Массив: ";
+    printArray(arr2, sizeArr2);
+    std::cout << "\nМаксимальное по модулю: " << maxAbs(arr2, sizeArr2) << "\n\n";
+
+    std::cout << "4.5 Добавление массива в массив\n";
+    int arr3[] = { 1, 2, 3, 4, 5 };
+    int ins[] = { 7, 8, 9 };
+    int sizeArr3 = 5;
+    int sizeIns = 3;
+    int pos = readInt("Введите позицию для вставки: ");
+    int newSize1;
+    int* result1 = add(arr3, sizeArr3, ins, sizeIns, pos, newSize1);
+    std::cout << "Результат: ";
+    printArray(result1, newSize1);
+    std::cout << "\n\n";
+    delete[] result1;
+
+    std::cout << "4.7 Возвратный реверс\n";
+    int arr4[] = { 1, 2, 3, 4, 5 };
+    int sizeArr4 = 5;
+    int newSize2;
+    int* result2 = reverseBack(arr4, sizeArr4, newSize2);
+    std::cout << "Исходный массив: ";
+    printArray(arr4, sizeArr4);
+    std::cout << "\nРеверсированный: ";
+    printArray(result2, newSize2);
+    std::cout << "\n\n";
+    delete[] result2;
+
+    std::cout << "4.9 Все вхождения\n";
+    int arr5[] = { 1, 2, 3, 8, 2, 2, 9 };
+    int sizeArr5 = 7;
+    int search2 = readInt("Введите число для поиска: ");
+    int resultSize;
+    int* result3 = findAll(arr5, sizeArr5, search2, resultSize);
+    std::cout << "Индексы вхождений: ";
+    printArray(result3, resultSize);
+    std::cout << "\n\n";
+    delete[] result3;
+
+    std::cout << "=== Работа завершена ===\n";
+
+    return 0;
+}
